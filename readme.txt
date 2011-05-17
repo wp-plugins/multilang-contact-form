@@ -3,7 +3,7 @@ Tags: contact, template
 Contributors: digitaldonkey, westi, ryanduff, firas
 Requires at least: 1.5
 Tested up to: 3.1
-Stable tag: 1.1
+Stable tag: Trunk
 Donate link: http://donkeymedia.eu/2010/08/26/worpress-multilingual-contactform/
 
 == Description ==
@@ -30,6 +30,9 @@ You need to add the `< !--contact form-->` (without the space at before the excl
 2. The Form
 
 == Upgrade Notice ==
+
+= 1.2 =
+Added Option to set a From-Field for the received mails 
 
 = 1.1 =
 Added Delete at Plugin deactivation and an Option to Skip this.

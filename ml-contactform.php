@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Multilang Contactform
-Plugin URI: http://blog.digitaldonkey.de
+Plugin URI: http://donkeymedia.eu/2010/08/26/worpress-multilingual-contactform/
 Description: Translatable Contacform Plugin. Based Ryan Duff and Peter Westwood WP-ContactForm (http://blog.ftwr.co.uk/wordpress/) on WP Contact Form is a drop in form for users to contact you. It can be implemented on a page or a post. It currently works with WordPress 2.0+
 Author: Thorsten Krug
 Author URI: http://donkeymedia.eu
-Version: 1.1
+Version: 1.2
 */
 
 load_plugin_textdomain('mlcf',$path = 'wp-content/plugins/multilang-contactform');
@@ -124,12 +124,20 @@ function mlcf_check_email($email) {
   
   return preg_match("/^$regex$/",$email);
 }
+
+
+/* Wrapper function to use in a Template .*/
+function mlcf_form(){
+  mlcf_callback($content, true);
+}
+
+
 /*Wrapper function which calls the form.*/
-function mlcf_callback( $content ) {
+function mlcf_callback( $content , $templateTag=false) {
 	global $mlcf_strings;
 
 	/* Run the input check. */		
-	if(false === strpos($content, '<!--contact form-->')) {
+	if(false === strpos($content, '<!--contact form-->') and !$templateTag) {
 		return $content;
 	}
   
@@ -138,6 +146,7 @@ function mlcf_callback( $content ) {
     {
     
             $recipient = get_option('mlcf_email');
+            $from_mail = get_option('mlcf_email_from');
 						$success_message = get_option('mlcf_success_message');
 						$success_message = stripslashes($success_message);
 
@@ -151,7 +160,7 @@ function mlcf_callback( $content ) {
 						$headers .= "From: $name <$email>\n";
 						$headers .= "Content-Type: text/plain; charset=\"" . get_settings('blog_charset') . "\"\n";
 		        $header2  = "Reply-To:".$email."\n";
-		        $header2 .= "From: webmail@donkeymedia.eu\r\n";
+		        $header2 .= "From: ".$from_mail."\r\n";
             
              $message = "e-Mail from ".get_bloginfo("name")." Contact Form: \n\n";
              $message .= wordwrap($text, 80, "\n") . "\n\n";
@@ -164,7 +173,7 @@ function mlcf_callback( $content ) {
              $message .= "\n_____________________________________________\n";
             
             mail($recipient,utf8_decode($subject),$message,$header2);
-            $results = '<div style="font-weight: bold;">' . $success_message . '</div>';
+            $results = '<div class="mailsend">' . $success_message . '</div>';
             echo $results;
     }
     else // Else show the form. If there are errors the strings will have updated during running the inputcheck.
@@ -200,7 +209,11 @@ function mlcf_callback( $content ) {
             </div>
         	</form>
         </div>';
-        return str_replace('<!--contact form-->', $form, $content);
+        if ($templateTag){
+          echo $form;
+        }else{
+          return str_replace('<!--contact form-->', $form, $content);
+        }
     }
 }
 

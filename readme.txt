@@ -31,6 +31,10 @@ You need to add the `< !--contact form-->` (without the space at before the excl
 
 == Upgrade Notice ==
 
+= 1.2 =
+Added Option to set a From-Field for the received mails.
+Thanks to Richard.
+
 = 1.1 =
 Added Delete at Plugin deactivation and an Option to Skip this.
 

@@ -3,7 +3,7 @@ Tags: contact, template
 Contributors: digitaldonkey, westi, ryanduff, firas
 Requires at least: 1.5
 Tested up to: 3.3.1
-Stable tag: 1.4
+Stable tag: Trunk
 Donate link: http://donkeymedia.eu/2010/08/26/worpress-multilingual-contactform/
 
 == Description ==

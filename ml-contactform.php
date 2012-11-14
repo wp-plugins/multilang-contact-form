@@ -2,10 +2,10 @@
 /*
 Plugin Name: Multilang Contactform
 Plugin URI: http://donkeymedia.eu/2010/08/26/worpress-multilingual-contactform/
-Description: Translatable Contacform Plugin. Based Ryan Duff and Peter Westwood WP-ContactForm (http://blog.ftwr.co.uk/wordpress/) on WP Contact Form is a drop in form for users to contact you. It can be implemented on a page or a post. It currently works with WordPress 2.0+
+Description: Fully Translatable Contacform Plugin. Based Ryan Duff and Peter Westwood WP-ContactForm. The Contact-Form can be implemented on a page or a post. It currently works with WordPress 2.0+ <strong>Update note:</strong> The tag has changed to <strong>[contact_form]</strong>
 Author: Thorsten Krug
 Author URI: http://donkeymedia.eu
-Version: 1.2
+Version: 1.5
 */
 
 load_plugin_textdomain('mlcf',$path = 'wp-content/plugins/multilang-contactform');
@@ -125,22 +125,14 @@ function mlcf_check_email($email) {
   return preg_match("/^$regex$/",$email);
 }
 
-
-/* Wrapper function to use in a Template .*/
-function mlcf_form(){
-  mlcf_callback($content, true);
+/* Replace Conten Tag */
+function mclf_tag_replace( $atts ) {
+    return mlcf_form();
 }
-
-
 /*Wrapper function which calls the form.*/
-function mlcf_callback( $content , $templateTag=false) {
+function mlcf_form() {
 	global $mlcf_strings;
 
-	/* Run the input check. */		
-	if(false === strpos($content, '<!--contact form-->') and !$templateTag) {
-		return $content;
-	}
-  
      //recaptcha
         $recaptcha_html ='';
         $recaptcha_enabled = false;
@@ -256,11 +248,7 @@ function mlcf_callback( $content , $templateTag=false) {
               </div>
         	</form>
         </div>';
-        if ($templateTag){
-          echo $form;
-        }else{
-          return str_replace('<!--contact form-->', $form, $content);
-        }
+      return $form;
     }
 }
 
@@ -331,14 +319,9 @@ function mclf_deactivate(){
     delete_option('mlcf_field_submit');
    }
 }
-/* don't let Tinymce remove all comments */
-function mlcf_mce_valid_elements($init){
-  $init['extended_valid_elements'] = '!--,'.$init['extended_valid_elements'];
-}
 
 /* Action calls for all functions */
 add_action('admin_menu', 'mlcf_add_options_page');
-add_filter('the_content', 'mlcf_callback', 7);
-add_filter('tiny_mce_before_init', 'mlcf_mce_valid_elements');
+add_shortcode( 'contact_form', 'mclf_tag_replace' );
 
 ?>

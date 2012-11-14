@@ -1,7 +1,7 @@
 === Multilang Contact Form ===
-Tags: contact, template, multilang, qtranslate
+Tags: contact, template, multilang, qtranslated
 Contributors: digitaldonkey, westi, ryanduff, firas
-Requires at least: 1.5
+Requires at least: 2.5
 Tested up to: 3.4.2
 Stable tag: Trunk
 Donate link: http://donkeymedia.eu/2010/08/26/worpress-multilingual-contactform/

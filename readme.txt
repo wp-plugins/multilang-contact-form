@@ -51,6 +51,19 @@ Easy to use 1 Minute Plugin for multilingual Websites.
 
 == Changelog ==
 
+= 1.5 =
+Changed Tag-Replace to current Wordpress Standard.
+This will fix the WYSISYG errors appearing in latest Wordpress versions
+
+= 1.4 =
+Added optional reCapture Antispam Support.
+Added comments to TinyMce valid Elements, that the Tag won't get deleted, when switching to html mode.
+
+= 1.2 =
+Added Option to set a From-Field for the received mails.
+Thanks to Richard.
+
+
 = 1.1 =
 Added Delete at Plugin deactivation and an Option to Skip this.
 
